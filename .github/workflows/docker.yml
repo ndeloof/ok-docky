@@ -7,34 +7,18 @@
 # 2. Set up secrets in your workspace: DOCKERHUB_KEY with the service account key.
 #
 
-name: Build and Deploy to DockerHub
+name: Push to DockerHub
 
-on: [pull_request]
-
-# Environment variables available to all jobs and steps in this workflow
-env:
-  IMAGE: ${{ github.repository }}
+on: [push,pull_request]
 
 jobs:
   setup-build-push:
-    name: Setup, Build, Push
+    name: Push
     runs-on: ubuntu-latest
     steps:
 
     - name: Checkout
       uses: actions/checkout@master
       
-    # Build the Docker image
-    - name: Build
-      run: |        
-        docker build -t $IMAGE:PR_${{ github.event.number }} \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" .
-
-    # Push the Docker image to DockerHub
-    - name: Push
-      run: |
-        docker push $IMAGE:PR_${{ github.event.number }}
-        
-    - name: Commit Status    
-      run: echo TODO
+    - name: Build and Push
+      uses: ndeloof/docker-action@master
