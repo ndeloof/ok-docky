@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@master
       
     - name: Event
-      run: echo {{ github.event }}
+      run: echo ${{ github.event }}
 
     # Build the Docker image
     - name: Build
