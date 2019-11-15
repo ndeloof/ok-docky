@@ -1,0 +1,42 @@
+# This workflow will build a docker container, publish it to Docker Hub.
+#
+# To configure this workflow:
+#
+# 1. Ensure that your repository contains the necessary configuration for Docker Hub.
+#
+# 2. Set up secrets in your workspace: DOCKERHUB_KEY with the service account key.
+#
+
+name: Build and Deploy to DockerHub
+
+on:
+  push:
+    branches:
+    - master
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GITHUB_SHA: ${{ github.sha }}
+  IMAGE: ${{ github.organization }}/${{ github.project }}
+
+jobs:
+  setup-build-push:
+    name: Setup, Build, Push
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@master
+     
+    # Build the Docker image
+    - name: Build
+      run: |        
+        docker build -t $IMAGE:$GITHUB_SHA \
+          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --build-arg GITHUB_REF="$GITHUB_REF" .
+
+    # Push the Docker image to Google Container Registry
+    - name: Push
+      run: |
+        docker push $IMAGE:$GITHUB_SHA
+        
