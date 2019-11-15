@@ -23,6 +23,9 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@master
+      
+    - name: Event
+      run: cat {{ github.event }}
 
     # Build the Docker image
     - name: Build
