@@ -7,3 +7,4 @@ CMD echo "hello docker"
 
 blah
 and more
+for the win
