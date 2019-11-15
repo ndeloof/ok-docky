@@ -13,8 +13,7 @@ on: [push]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
-  GITHUB_SHA: ${{ github.sha }}
-  IMAGE: ${{ github.organization }}/${{ github.project }}
+  IMAGE: ${{ github.repository }}
   TAG: ${{ github.ref }}
 
 jobs:
