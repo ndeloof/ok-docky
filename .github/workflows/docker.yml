@@ -9,10 +9,14 @@
 
 name: Push to DockerHub
 
-on: [push,pull_request]
+on: 
+  push:
+    branches: '*'
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
-  setup-build-push:
+  build-push:
     name: Push
     runs-on: ubuntu-latest
     steps:
@@ -22,3 +26,5 @@ jobs:
       
     - name: Build and Push
       uses: ndeloof/docker-action@master
+      with:
+        password: ${{ secret.DOCKERHUB_PASSWORD }}
