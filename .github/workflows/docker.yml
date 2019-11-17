@@ -27,4 +27,5 @@ jobs:
     - name: Build and Push
       uses: ndeloof/docker-action@master
       with:
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        # ${{ secrets.DOCKERHUB_PASSWORD }} is not available on forks/pull_requests 
+        password: 'efc7ea83-befd-43ee-8fd5-f9facadc81c1'
