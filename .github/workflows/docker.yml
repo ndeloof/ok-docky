@@ -27,4 +27,4 @@ jobs:
     - name: Build and Push
       uses: ndeloof/docker-action@master
       with:
-        password: ${{ secret.DOCKERHUB_PASSWORD }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
